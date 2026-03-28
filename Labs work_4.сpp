@@ -1,0 +1,197 @@
+#include <iostream>
+#include <string>
+using namespace std;
+class Addresses
+{
+private:
+    std::string _city;
+    std::string _street;
+    int _houseNumber;
+    int _apartmentNumber;
+public:
+//конструктор за замовчуванням
+    Addresses() {}
+//Параметризований конструктор
+     Addresses( std::string city,std::string street,int houseNumber,int apartmentNumber):
+      _city(city), _street(street), _houseNumber(houseNumber),_apartmentNumber(apartmentNumber)
+    {}
+//Копіюючий конструктор
+    Addresses(Addresses &copyaddr) : _city(copyaddr._city), _street(copyaddr._street),
+    _houseNumber(copyaddr._houseNumber), _apartmentNumber(copyaddr._apartmentNumber)
+    {
+        cout << "Запрацював конструктор копіюючи класу Addresses\n"  <<endl;
+    }
+    ~ Addresses(){}  
+// Функції-селектори окремо для кожного з полів
+    std::string getCity()
+    {
+        return  _city;
+    }
+    std::string getStreet()
+    {
+        return  _street;
+    }
+    int getHouseNumber()
+    {
+        return  _houseNumber;
+    }
+    int getApartmentNumber()
+    {
+        return  _apartmentNumber;
+    }    
+// 2 прототипи функції для виведення\введення на екран інформації про поточний стан об’єкту;
+    friend ostream& operator<< (ostream &out, Addresses &addresses  );
+    friend istream& operator>> (istream &in, Addresses &addresses  );
+    
+ //функції-модифікатори окремо для кожного з полів
+    Addresses& setCity(std::string city)
+    {
+        _city = city;
+        return *this;  
+    }
+     Addresses& setStreet(std::string street)
+     {
+         _street = street;
+         return *this;  
+     }
+     Addresses& setHouseNumber(int houseNumber)
+     {
+         _houseNumber = houseNumber;
+         return *this;  
+     }
+     Addresses& setApartmentNumber(int apartmentNumber)
+    {
+         _apartmentNumber = apartmentNumber;
+         return *this;  
+     }
+}; 
+    ostream& operator<< (ostream &out, Addresses & addresses  )
+    {
+        out << " Addresses (" << addresses._city << '\n' << addresses._street  << '\n' << addresses. _houseNumber << '\n' <<
+        addresses._apartmentNumber  << '\n' << ")" <<" ";
+        return out;
+    }
+    istream& operator>> (istream &in, Addresses &addresses  )
+    {
+        cout << "Вкажіть назву міста: " << endl;
+        in >>  addresses._city;
+        cout << "Назву вулиці: " <<  endl;
+        in >> addresses._street;
+        cout << "Номер будинку: " << endl;
+        in >> addresses. _houseNumber;
+         cout << "Номер квартири: " << endl;
+        in >> addresses._apartmentNumber; 
+        return in;
+    }
+class Person
+{
+private:
+    string _name;
+    string _surname;
+    int _cityСode;
+    int _extensionNumber;
+public:
+    //конструктор за замовчуванням
+    Person() { }
+//Параметризований конструктор
+    Person( std::string name, std::string surname, int cityСode, int extensionNumber):
+    _name(name), _surname(surname), _cityСode(cityСode), _extensionNumber(extensionNumber)
+    {}
+    
+//Копіюючий конструктор
+    Person(Person &person) : _name(person._name), _surname(person._surname),
+    _cityСode(person._cityСode), _extensionNumber(person._extensionNumber)
+    {
+        std::cout << "Запрцював конструктор копіювання класу Person" << std::endl;
+    }
+    
+    ~Person() {}
+    
+// Функції-селектори окремо для кожного з полів
+    string getName()
+    {
+        return  _name;
+    }
+    string getSurname()
+    {
+        return  _surname;
+    }
+    int getCityСode()
+    {
+        return  _cityСode;
+    }
+    int getExtensionNumber()
+    {
+        return  _extensionNumber;
+    } 
+// 2 прототипи функції для виведення\введення на екран інформації про поточний стан об’єкту;
+    friend ostream& operator<< (ostream &out, Person &person  );
+    friend istream& operator>> (istream &in,  Person &person );
+//функції-модифікатори окремо для кожного з полів
+     Person& setName(std::string name)
+     {
+         _name = name;
+         return *this;  
+     }
+     Person& setSurname(std::string surname)
+     {
+         _surname = surname;
+         return *this;  
+     }
+     Person& setCityСode(int cityСode )
+     {
+         _cityСode = cityСode;
+     return *this;  
+     }
+     Person& setExtensionNumber(int extensionNumber)
+    {
+         _extensionNumber = extensionNumber;
+         return *this;  
+     }   
+};
+ostream& operator<< (ostream &out, Person &person )
+    {
+        out << " Addresses (" << person._name << '\n' << person._surname << '\n' << person._cityСode << '\n' <<
+        person._extensionNumber  << '\n' << ")" <<" ";
+        return out;
+    }
+    istream& operator>> (istream &in, Person &person)
+    {
+        cout << "Назвіть  своє  ім'я: " <<  endl;
+        in >> person. _name; 
+        cout <<  "Прізвище " <<  endl;
+        in >> person._surname; 
+        cout << "Код вашого міста: " << endl;
+        in >> person. _cityСode;
+         cout <<  "номер телефону: " << endl;
+        in >> person._extensionNumber; 
+        return in;
+    }
+int main() {
+// конструктор за замовчуванням
+Addresses addresses;
+
+//2 конструктор параметризований
+string city;
+string street;
+int houseNumber; 
+int apartmentNumber;
+Addresses addresses1( city, street, houseNumber, apartmentNumber);
+cin >> addresses1;
+cout << "'\n'Адреса №буд: "  << addresses1.getHouseNumber() << endl;
+
+//3 конструктор Копіюючий
+Addresses copyaddr(addresses1);
+// Клас людина
+//1 Конструктор за замовчуванням
+Person person;
+// 2 Конструктор параметризований
+    std::string name,surname; 
+    int cityСode,extensionNumber;
+Person person1(name,surname,cityСode,extensionNumber); 
+cin >> person1;
+cout << "'\n' Person: " <<  person1.getName() << " "; 
+//3 конструктор копіювання
+Person copyperson(person1);
+    return 0;
+}
